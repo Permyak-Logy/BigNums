@@ -19,39 +19,17 @@ std::ostream &operator<<(std::ostream &ostream, const BigInt &number) {
   }
   return ostream;
 }
-
-BigInt BigInt::abs(const BigInt &n) {
-  BigInt r(n._digits);
-  return r;
+BigInt &BigInt::operator=(const BigInt &other) {
+  _digits.resize(other._digits.size());
+  std::copy(other._digits.begin(), other._digits.end(), _digits.begin());
+  _negative = other._negative;
+  return *this;
 }
+
+
 
 void BigInt::fixup() {
   while (_digits.size() > 1 && _digits.back() == 0) _digits.pop_back();
 
   if (_digits.size() == 1 && _digits[0] == 0) _negative = false;
-}
-
-BigInt BigInt::gcd(BigInt a, BigInt b) {
-  a = abs(a);
-  b = abs(b);
-
-  while (a != 0 && b != 0) {
-	if (a > b) {
-	  a %= b;
-	} else {
-	  b %= a;
-	}
-  }
-  return a + b;
-}
-
-void BigInt::_shift_right() {
-  if (_digits.empty()) {
-	_digits.push_back(0);
-	return;
-  }
-  _digits.push_back(_digits[_digits.size() - 1]);
-  for (size_t i = _digits.size() - 2; i > 0; --i)
-	_digits[i] = _digits[i - 1];
-  _digits[0] = 0;
 }
