@@ -80,33 +80,8 @@ BigInt BigInt::operator-() const {
   BigInt result = BigInt(this->_digits, !this->_negative);
   return result;
 }
-BigInt BigInt::operator>>(int shift_n) const {
-  if (_digits.size() <= shift_n) return 0;
-
-  BigInt result;
-  result._negative = _negative;
-  result._digits.resize(_digits.size() - shift_n);
-  for (size_t i = shift_n; i < _digits.size(); ++i) {
-	result._digits[i - shift_n] = _digits[i];
-  }
-  return result;
-}
-BigInt BigInt::operator<<(int shift_n) const {
-  if (_digits.size() == 1 && _digits[0] == 0) return 0;
-
-  BigInt result;
-  result._negative = _negative;
-  for (size_t i = 0; i < shift_n; ++i) {
-	result._digits[i] = 0;
-  }
-  for (size_t i = 0; i < _digits.size(); ++i) {
-	result._digits[i + shift_n] = _digits[i];
-  }
-  return result;
-}
 
 BigInt &operator+=(BigInt &a, const BigInt &other) {
-  a = a + other;
   return a = a + other;
 }
 BigInt &operator-=(BigInt &a, const BigInt &other) {
@@ -121,38 +96,10 @@ BigInt &operator/=(BigInt &a, const BigInt &other) {
 BigInt &operator%=(BigInt &a, const BigInt &other) {
   return a = a % other;
 }
-BigInt &BigInt::operator>>=(int shift_n) {
-  return *this = *this >> shift_n;
-}
-BigInt &BigInt::operator<<=(int shift_n) {
-  return *this = *this << shift_n;
-}
 
 std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt &other) const {
   if (other == 0) {
 	throw std::runtime_error("Zero is specified as the divisor.");
-  }
-
-  if (other._digits.size() == 1) {
-	// Алгоритм деления большого на маленькое
-	BigInt div_res;
-	div_res._negative = this->_negative ^ other._negative;
-	div_res._digits.resize(this->_digits.size());
-	std::copy(this->_digits.begin(), this->_digits.end(), div_res._digits.begin());
-
-	int number_second_integer = other._digits.front();
-	long long in_mind = 0;
-	long long composition;
-	for (long long i = 0; i < div_res._digits.size(); i = i + 1) {
-	  composition = (long long)div_res._digits[i] + in_mind * (long long)BASE;
-	  in_mind = composition % number_second_integer;
-	  div_res._digits[i] = (int)(composition / number_second_integer);
-	}
-
-	div_res.fixup();
-	std::pair<BigInt, BigInt> result(div_res, in_mind);
-
-	return result;
   }
 
   if (abs(*this) < abs(other)) {
@@ -166,7 +113,7 @@ std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt &other) const {
   remainder._digits.clear();
   div_result._digits.resize(this->_digits.size());
   for (long long i = (long long)(this->_digits.size()) - 1; i >= 0; --i) {
-	remainder <<= 1;
+	remainder._shift_right();
 	remainder._digits[0] = this->_digits[i];
 	remainder.fixup();
 	int x = 0, l = 0, r = BASE;
@@ -190,19 +137,20 @@ std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt &other) const {
   return result;
 }
 BigInt BigInt::abs(const BigInt &n) {
-  BigInt r(n._digits);
-  return r;
+  BigInt result = n;
+  result._negative = false;
+  return result;
 }
-BigInt BigInt::gcd(BigInt a, BigInt b) {
-  a = abs(a);
-  b = abs(b);
+BigInt BigInt::gcd(const BigInt& a, const BigInt& b) {
+  BigInt a_ = abs(a);
+  BigInt b_ = abs(b);
 
-  while (a != 0 && b != 0) {
-	if (a > b) {
-	  a %= b;
+  while (a_ != 0 && b_ != 0) {
+	if (a_ > b_) {
+	  a_ = a_ % b_;
 	} else {
-	  b %= a;
+	  b_ = b_ % a_;
 	}
   }
-  return a + b;
+  return a_ + b_;
 }

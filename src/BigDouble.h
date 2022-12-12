@@ -1,14 +1,16 @@
-#include <utility>
+#ifndef BIGNUM_SCR_BIG_DOUBLE_H_
+#define BIGNUM_SCR_BIG_DOUBLE_H_
 
+#include <utility>
 #include "BigInt.h"
 
 class BigDouble {
  public:
 
-  BigDouble() : _num(0), _den(1) {};
+  BigDouble() : _num(0ull), _den(1ull) {};
 
   BigDouble(double n) : BigDouble(std::to_string(n)) {}; // NOLINT(google-explicit-constructor)
-  BigDouble(const BigInt &integer) : _num(integer), _den(1) {} // NOLINT(google-explicit-constructor)
+  BigDouble(const BigInt &integer) : _num(integer), _den(1ull) {} // NOLINT(google-explicit-constructor)
   BigDouble(const BigInt &numerator, const BigInt &denominator)
 	  : _num(numerator), _den(denominator) { fixup(); };
   explicit BigDouble(const std::string &);
@@ -49,3 +51,4 @@ class BigDouble {
   BigInt _num;
   BigInt _den;
 };
+#endif

@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
         BigNum main.cpp
+        src/BigNums.h
+        src/utils.cpp
+        src/aliases.cpp
+
         src/BigInt.h
         src/Int/utils.cpp
         src/Int/arithmetic.cpp
@@ -16,4 +20,4 @@ add_executable(
         src/Double/arithmetic.cpp
         src/Double/init.cpp
         src/Double/compare.cpp
-        src/utils.cpp)
+        )

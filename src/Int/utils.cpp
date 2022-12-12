@@ -31,3 +31,14 @@ void BigInt::fixup() {
 
   if (_digits.size() == 1 && _digits[0] == 0) _negative = false;
 }
+
+void BigInt::_shift_right() {
+  if (_digits.empty()) {
+	_digits.push_back(0);
+	return;
+  }
+  _digits.push_back(_digits[_digits.size() - 1]);
+  for (size_t i = _digits.size() - 2; i > 0; --i)
+	_digits[i] = _digits[i - 1];
+  _digits[0] = 0;
+}
