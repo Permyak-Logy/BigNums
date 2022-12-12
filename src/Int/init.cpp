@@ -18,7 +18,9 @@ BigInt::BigInt(long long n) {
 BigInt::BigInt(const std::string &s) {
   if (s.empty() or (s.size() == 1 and s[0] == '-'))
 	throw std::runtime_error("String does not contain a number.");
-
+  for (size_t i=1;i<s.size();++i)
+	if (s[i] < '0' || '9' < s[i])
+	  throw std::runtime_error("String does not contain a integer.");
   _digits.clear();
   _negative = s[0] == '-';
   for (int i = (int)s.length(); i > _negative; i -= BASE_LENGTH)

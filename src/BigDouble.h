@@ -7,34 +7,30 @@ class BigDouble {
 
   BigDouble() : _num(0), _den(1) {};
 
-  BigDouble(double n) : BigDouble(std::to_string(n)) {};
-  BigDouble(BigInt integer) : _num(std::move(integer)), _den(1) {}
-  BigDouble(BigInt numerator, BigInt denominator)
-	  : _num(std::move(numerator)), _den(std::move(denominator)) { fixup(); };
+  BigDouble(double n) : BigDouble(std::to_string(n)) {}; // NOLINT(google-explicit-constructor)
+  BigDouble(const BigInt &integer) : _num(integer), _den(1) {} // NOLINT(google-explicit-constructor)
+  BigDouble(const BigInt &numerator, const BigInt &denominator)
+	  : _num(numerator), _den(denominator) { fixup(); };
   explicit BigDouble(const std::string &);
 
-  std::string to_string() const;
+  [[nodiscard]] std::string to_string() const;
   friend std::ostream &operator<<(std::ostream &ostream, const BigDouble &number);
 
-  BigDouble operator+(const BigDouble &other) const;
-  BigDouble operator+=(const BigDouble &other);
-
-  BigDouble operator-(const BigDouble &other) const;
-  BigDouble operator-=(BigDouble &other);
-
-  BigDouble operator*(const BigDouble &other) const;
-  BigDouble operator*=(const BigDouble &other);
-
-  BigDouble operator/(const BigDouble &other) const;
-  BigDouble operator/=(const BigDouble &other);
-
-  BigDouble operator%(const BigDouble &other) const;
-  BigDouble operator%=(const BigDouble &other);
-
+  friend BigDouble operator+(const BigDouble &a, const BigDouble &b);
+  friend BigDouble operator-(const BigDouble &a, const BigDouble &b);
+  friend BigDouble operator*(const BigDouble &a, const BigDouble &b);
+  friend BigDouble operator/(const BigDouble &a, const BigDouble &b);
+  friend BigDouble operator%(const BigDouble &a, const BigDouble &b);
   BigDouble operator-() const;
 
-  BigInt whole_part() const;
-  BigDouble fraction_part() const;
+  BigDouble operator+=(const BigDouble &other);
+  BigDouble operator-=(const BigDouble &other);
+  BigDouble operator*=(const BigDouble &other);
+  BigDouble operator/=(const BigDouble &other);
+  BigDouble operator%=(const BigDouble &other);
+
+  [[nodiscard]] BigInt whole_part() const;
+  [[nodiscard]] BigDouble fraction_part() const;
   static BigDouble abs(const BigDouble &n);
 
   friend bool operator<(const BigDouble &a, const BigDouble &b);

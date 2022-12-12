@@ -26,8 +26,6 @@ BigInt &BigInt::operator=(const BigInt &other) {
   return *this;
 }
 
-
-
 void BigInt::fixup() {
   while (_digits.size() > 1 && _digits.back() == 0) _digits.pop_back();
 

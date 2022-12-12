@@ -51,6 +51,7 @@ std::ostream &operator<<(std::ostream &ostream, const BigDouble &number) {
   }
   return ostream;
 }
+
 void BigDouble::fixup() {
   if (_num == 0) {
 	_den = 1;
@@ -69,8 +70,4 @@ BigInt BigDouble::whole_part() const {
 }
 BigDouble BigDouble::fraction_part() const {
   return *this - whole_part();
-}
-BigDouble BigDouble::abs(const BigDouble &n) {
-  BigDouble result(BigInt::abs(n._num), n._den);
-  return result;
 }
