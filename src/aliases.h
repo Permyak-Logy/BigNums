@@ -1,6 +1,6 @@
-//
-// Created by maxsi on 12.12.2022.
-//
+#ifndef BIGNUM_SRC_ALIASES_
+#define BIGNUM_SRC_ALIASES_
+
 #include "BigDouble.h"
 
 #define COMP(R, P) bool operator R P {return BigDouble(a) R BigDouble(b);}
@@ -20,3 +20,5 @@ FUNCS(-)
 FUNCS(*)
 FUNCS(/)
 FUNCS(%)
+
+#endif

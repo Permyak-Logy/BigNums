@@ -1,5 +1,5 @@
-#ifndef BIGNUM_SCR_BIG_DOUBLE_H_
-#define BIGNUM_SCR_BIG_DOUBLE_H_
+#ifndef BIGNUM_SRC_BIG_DOUBLE_H_
+#define BIGNUM_SRC_BIG_DOUBLE_H_
 
 #include <utility>
 #include "BigInt.h"

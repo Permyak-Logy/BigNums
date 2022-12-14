@@ -7,7 +7,7 @@ add_executable(
         BigNum main.cpp
         src/BigNums.h
         src/utils.cpp
-        src/aliases.cpp
+        src/aliases.h
 
         src/BigInt.h
         src/Int/utils.cpp
