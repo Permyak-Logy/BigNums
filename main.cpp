@@ -65,13 +65,16 @@ void arithmetic_big_int() {
   a /= b;
   std::cout << "(a/=b): a = " << a << std::endl;
 
-  // Можно умножать на число, но не double (Необходимо привести к BigDouble)
+  // Можно умножать на число
   std::cout << "a * 10 = " << a * 10 << std::endl;
+
+  // Или на дробь, но тогда на выходе будет BigDouble
+  std::cout << "a * 10.1 = " << a * 10.1 << std::endl;
 }
 
 void arithmetic_big_double() {
   std::cout << "====== Arithmetic BigDouble ======" << std::endl;
-  BigDouble a("123.13"), b("-1.5");
+  BigDouble a("123.13"), b("1.5");
 
   std::cout << a << " + " << b << " = " << a + b << std::endl;
   std::cout << a << " - " << b << " = " << a - b << std::endl;
@@ -92,9 +95,10 @@ void arithmetic_big_double() {
   a /= b;
   std::cout << "(a/=b): a = " << a << std::endl;
 
-  // Можно выполнять аналогично с числами и дробями
+  // Можно выполнять аналогично с числами, дробями и BigInt
   std::cout << "a + 10.1 = " << a + 10.1 << std::endl;
   std::cout << "10 - a = " << 10 - a << std::endl;
+  std::cout << "a + 100" << a + BigInt(100) << std::endl;
 }
 
 void compares() {
@@ -102,8 +106,7 @@ void compares() {
   BigInt a(123);
   BigDouble b(150.5);
 
-  // Можно сравнивать BigInt, BigDouble, int, double,
-  // но нельзя BigInt и double без привидения второго к BigDouble.
+  // Можно сравнивать BigInt, BigDouble, int, double
   std::cout << a << " < " << b << " = " << (a < b ? "True" : "False") << std::endl;
   std::cout << a << " > " << b << " = " << (a > b ? "True" : "False") << std::endl;
   std::cout << a << " <= " << b << " = " << (a <= b ? "True" : "False") << std::endl;
@@ -115,11 +118,28 @@ void compares() {
   std::cout << a << " < 10." << " = " << (a < 10. ? "True" : "False") << std::endl;
 }
 
+void other() {
+  std::cout << "====== Other ======" << std::endl;
+
+  // Наибольший общий делитель
+  BigInt a(123), b(15);
+  std::cout << "gcd(" << a << ", " << b << ") = " << BigInt::gcd(a, b) << std::endl;
+
+  // Преобразование к строке
+  std::cout << '"' << BigInt("2132131").to_string() << '"' << std::endl;
+  std::cout << '"' << BigDouble("2/3").to_string() << '"' << std::endl;
+
+  // Дробь в виде простой дроби
+  BigDouble f("1/2");
+  std::cout << f << " = " << f.num() << "/" << f.den() << std::endl;
+}
+
 int main() {
   init_big_int();
   init_big_double();
   arithmetic_big_int();
   arithmetic_big_double();
   compares();
+  other();
   return 0;
 }

@@ -13,10 +13,10 @@ class BigInt {
 
   BigInt() : BigInt(0ull) {};
 
-  BigInt(int n) : BigInt((long long) n) {};
-  BigInt(unsigned int n) : BigInt((unsigned long long) n) {};
-  BigInt(long long n);
-  BigInt(unsigned long long n);
+  BigInt(int n) : BigInt((long long)n) {}; // NOLINT(google-explicit-constructor)
+  BigInt(unsigned int n) : BigInt((unsigned long long)n) {}; // NOLINT(google-explicit-constructor)
+  BigInt(long long n); // NOLINT(google-explicit-constructor)
+  BigInt(unsigned long long n); // NOLINT(google-explicit-constructor)
 
   explicit BigInt(const std::string &s);
   BigInt(digits_t n, bool negative) : _digits(std::move(n)), _negative(negative) {};
