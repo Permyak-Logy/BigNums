@@ -1,4 +1,42 @@
-#include "../BigInt.h"
+#include "BigInt.h"
+
+BigInt::BigInt(long long n) {
+  _digits.clear();
+  if (n < 0) {
+	_negative = true;
+	n = -n;
+  } else {
+	_negative = false;
+  }
+
+  do {
+	_digits.push_back((int)(n % BASE));
+	n /= BASE;
+  } while (n);
+}
+BigInt::BigInt(unsigned long long n) {
+  _digits.clear();
+  _negative = false;
+  do {
+	_digits.push_back((int)(n % BASE));
+	n /= BASE;
+  } while (n);
+}
+BigInt::BigInt(const std::string& s) {
+  if (s.empty() or (s.size() == 1 and s[0] == '-'))
+	throw std::runtime_error("String does not contain a number.");
+  for (size_t i = 1; i < s.size(); ++i)
+	if (s[i] < '0' || '9' < s[i])
+	  throw std::runtime_error("String does not contain a integer.");
+  _digits.clear();
+  _negative = s[0] == '-';
+  for (int i = (int)s.length(); i > _negative; i -= BASE_LENGTH)
+	if (i < BASE_LENGTH)
+	  _digits.push_back(std::stoi(s.substr(_negative, i - _negative)));
+	else
+	  _digits.push_back(std::stoi(s.substr(i - BASE_LENGTH, BASE_LENGTH)));
+  fixup();
+}
 
 BigInt operator+(const BigInt& a, const BigInt& other) { // NOLINT(misc-no-recursion)
   if (!a._negative && other._negative) {
@@ -168,4 +206,80 @@ BigInt BigInt::gcd(const BigInt& a, const BigInt& b) {
 	}
   }
   return a_ + b_;
+}
+
+bool operator<(const BigInt& a, const BigInt& b) {
+  if (a._negative != b._negative)
+	return a._negative;
+
+  if (a._digits.size() != b._digits.size())
+	return (a._digits.size() < b._digits.size()) ^ a._negative;
+
+  for (size_t i = a._digits.size(); i > 0; --i)
+	if (a._digits[i - 1] != b._digits[i - 1])
+	  return (a._digits[i - 1] < b._digits[i - 1]) ^ a._negative;
+
+  return false;
+}
+bool operator>(const BigInt& a, const BigInt& b) {
+  return !(a < b);
+}
+bool operator==(const BigInt& a, const BigInt& b) {
+  if (a._negative != b._negative) return false;
+  if (a._digits.size() != b._digits.size()) return false;
+  for (size_t i = 0; i < a._digits.size(); ++i) {
+	if (a._digits[i] != b._digits[i]) return false;
+  }
+  return true;
+}
+bool operator<=(const BigInt& a, const BigInt& b) {
+  return (a < b) || a == b;
+}
+bool operator>=(const BigInt& a, const BigInt& b) {
+  return !(a < b) || a == b;
+}
+bool operator!=(const BigInt& a, const BigInt& b) {
+  return !(a == b);
+}
+
+std::string BigInt::to_string() const {
+  std::string result = _negative ? "-" : "";
+
+  result += std::to_string(_digits.empty() ? 0 : _digits.back());
+  for (int i = (int)_digits.size() - 2; i >= 0; --i) {
+	std::string tmp = std::to_string(_digits[i]);
+	for (int j = 0; j < BASE_LENGTH - tmp.size(); ++j) result.append("0");
+	result += tmp;
+  }
+  return result;
+}
+
+std::ostream& operator<<(std::ostream& ostream, const BigInt& number) {
+  std::string string = number.to_string();
+  for (long long i = 0; i < string.size(); i = i + 1) {
+	ostream.put(string[i]);
+  }
+  return ostream;
+}
+BigInt& BigInt::operator=(const BigInt& other) {
+  _digits.resize(other._digits.size());
+  std::copy(other._digits.begin(), other._digits.end(), _digits.begin());
+  _negative = other._negative;
+  return *this;
+}
+
+void BigInt::fixup() {
+  while (_digits.size() > 1 && _digits.back() == 0) _digits.pop_back();
+
+  if (_digits.size() == 1 && _digits[0] == 0) _negative = false;
+}
+void BigInt::_shift_right() {
+  if (_digits.empty()) {
+	_digits.push_back(0);
+	return;
+  }
+  _digits.push_back(_digits[_digits.size() - 1]);
+  for (size_t i = _digits.size() - 2; i > 0; --i)
+	_digits[i] = _digits[i - 1];
+  _digits[0] = 0;
 }
