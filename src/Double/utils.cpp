@@ -44,7 +44,7 @@ std::string BigDouble::to_string() const {
   return result;
 }
 
-std::ostream &operator<<(std::ostream &ostream, const BigDouble &number) {
+std::ostream& operator<<(std::ostream& ostream, const BigDouble& number) {
   std::string string = number.to_string();
   for (long long i = 0; i < string.size(); i = i + 1) {
 	ostream.put(string[i]);

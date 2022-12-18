@@ -24,7 +24,7 @@ BigInt::BigInt(unsigned long long n) {
   } while (n);
 }
 
-BigInt::BigInt(const std::string &s) {
+BigInt::BigInt(const std::string& s) {
   if (s.empty() or (s.size() == 1 and s[0] == '-'))
 	throw std::runtime_error("String does not contain a number.");
   for (size_t i = 1; i < s.size(); ++i)

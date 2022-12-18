@@ -1,6 +1,6 @@
 #include "../BigInt.h"
 
-bool operator<(const BigInt &a, const BigInt &b) {
+bool operator<(const BigInt& a, const BigInt& b) {
   if (a._negative != b._negative)
 	return a._negative;
 
@@ -14,11 +14,11 @@ bool operator<(const BigInt &a, const BigInt &b) {
   return false;
 }
 
-bool operator>(const BigInt &a, const BigInt &b) {
+bool operator>(const BigInt& a, const BigInt& b) {
   return !(a < b);
 }
 
-bool operator==(const BigInt &a, const BigInt &b) {
+bool operator==(const BigInt& a, const BigInt& b) {
   if (a._negative != b._negative) return false;
   if (a._digits.size() != b._digits.size()) return false;
   for (size_t i = 0; i < a._digits.size(); ++i) {
@@ -27,14 +27,14 @@ bool operator==(const BigInt &a, const BigInt &b) {
   return true;
 }
 
-bool operator<=(const BigInt &a, const BigInt &b) {
+bool operator<=(const BigInt& a, const BigInt& b) {
   return (a < b) || a == b;
 }
 
-bool operator>=(const BigInt &a, const BigInt &b) {
+bool operator>=(const BigInt& a, const BigInt& b) {
   return !(a < b) || a == b;
 }
 
-bool operator!=(const BigInt &a, const BigInt &b) {
+bool operator!=(const BigInt& a, const BigInt& b) {
   return !(a == b);
 }

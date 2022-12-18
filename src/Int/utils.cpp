@@ -12,14 +12,14 @@ std::string BigInt::to_string() const {
   return result;
 }
 
-std::ostream &operator<<(std::ostream &ostream, const BigInt &number) {
+std::ostream& operator<<(std::ostream& ostream, const BigInt& number) {
   std::string string = number.to_string();
   for (long long i = 0; i < string.size(); i = i + 1) {
 	ostream.put(string[i]);
   }
   return ostream;
 }
-BigInt &BigInt::operator=(const BigInt &other) {
+BigInt& BigInt::operator=(const BigInt& other) {
   _digits.resize(other._digits.size());
   std::copy(other._digits.begin(), other._digits.end(), _digits.begin());
   _negative = other._negative;

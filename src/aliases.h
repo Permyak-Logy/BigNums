@@ -3,22 +3,81 @@
 
 #include "BigDouble.h"
 
-#define COMP(R, P) bool operator R P {return BigDouble(a) R BigDouble(b);}
-#define COMPS(R) COMP(R, (const BigInt& a, double b)) COMP(R, (double b, const BigInt& a))
-#define FUNC(R, P) BigDouble operator R P {return BigDouble(a) R BigDouble(b);}
-#define FUNCS(R) FUNC(R, (const BigInt& a, double b)) FUNC(R, (double b, const BigInt& a))
+bool operator<(const BigInt& a, double b) {
+  return BigDouble(a) < BigDouble(b);
+}
+bool operator<(double a, const BigInt& b) {
+  return BigDouble(a) < BigDouble(b);
+}
 
-COMPS(<)
-COMPS(>)
-COMPS(<=)
-COMPS(>=)
-COMPS(==)
-COMPS(!=)
+bool operator>(const BigInt& a, double b) {
+  return BigDouble(a) > BigDouble(b);
+}
+bool operator>(double a, const BigInt& b) {
+  return BigDouble(a) > BigDouble(b);
+}
 
-FUNCS(+)
-FUNCS(-)
-FUNCS(*)
-FUNCS(/)
-FUNCS(%)
+bool operator<=(const BigInt& a, double b) {
+  return BigDouble(a) <= BigDouble(b);
+}
+bool operator<=(double a, const BigInt& b) {
+  return BigDouble(a) <= BigDouble(b);
+}
+
+bool operator>=(const BigInt& a, double b) {
+  return BigDouble(a) >= BigDouble(b);
+}
+bool operator>=(double a, const BigInt& b) {
+  return BigDouble(a) >= BigDouble(b);
+}
+
+bool operator==(const BigInt& a, double b) {
+  return BigDouble(a) == BigDouble(b);
+}
+bool operator==(double a, const BigInt& b) {
+  return BigDouble(a) == BigDouble(b);
+}
+
+bool operator!=(const BigInt& a, double b) {
+  return BigDouble(a) != BigDouble(b);
+}
+bool operator!=(double a, const BigInt& b) {
+  return BigDouble(a) != BigDouble(b);
+}
+
+BigDouble operator+(const BigInt& a, double b) {
+  return BigDouble(a) + BigDouble(b);
+}
+BigDouble operator+(double a, const BigInt& b) {
+  return BigDouble(a) + BigDouble(b);
+}
+
+BigDouble operator-(const BigInt& a, double b) {
+  return BigDouble(a) - BigDouble(b);
+}
+BigDouble operator-(double a, const BigInt& b) {
+  return BigDouble(a) - BigDouble(b);
+}
+
+BigDouble operator*(const BigInt& a, double b) {
+  return BigDouble(a) * BigDouble(b);
+}
+BigDouble operator*(double a, const BigInt& b) {
+  return BigDouble(a) * BigDouble(b);
+}
+
+BigDouble operator/(const BigInt& a, double b) {
+  return BigDouble(a) / BigDouble(b);
+}
+BigDouble operator/(double a, const BigInt& b) {
+  return BigDouble(a) / BigDouble(b);
+}
+
+BigDouble operator%(const BigInt& a, double b) {
+  return BigDouble(a) % BigDouble(b);
+}
+BigDouble operator%(double a, const BigInt& b) {
+  return BigDouble(a) % BigDouble(b);
+}
 
 #endif

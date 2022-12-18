@@ -18,36 +18,41 @@ class BigInt {
   BigInt(long long n); // NOLINT(google-explicit-constructor)
   BigInt(unsigned long long n); // NOLINT(google-explicit-constructor)
 
-  explicit BigInt(const std::string &s);
+  explicit BigInt(const std::string& s);
   BigInt(digits_t n, bool negative) : _digits(std::move(n)), _negative(negative) {};
 
   [[nodiscard]] std::string to_string() const;
-  friend std::ostream &operator<<(std::ostream &ostream, const BigInt &number);
-  BigInt &operator=(const BigInt &other);
+  friend std::ostream& operator<<(std::ostream& ostream, const BigInt& number);
+  BigInt& operator=(const BigInt& other);
 
-  friend BigInt operator+(const BigInt &a, const BigInt &b);
-  friend BigInt operator-(const BigInt &a, const BigInt &b);
-  friend BigInt operator*(const BigInt &a, const BigInt &b);
-  friend BigInt operator/(const BigInt &a, const BigInt &b);
-  friend BigInt operator%(const BigInt &a, const BigInt &b);
+  friend BigInt operator+(const BigInt& a, const BigInt& b);
+  friend BigInt operator-(const BigInt& a, const BigInt& b);
+  friend BigInt operator*(const BigInt& a, const BigInt& b);
+  friend BigInt operator/(const BigInt& a, const BigInt& b);
+  friend BigInt operator%(const BigInt& a, const BigInt& b);
   BigInt operator-() const;
 
-  friend BigInt &operator+=(BigInt &a, const BigInt &b);
-  friend BigInt &operator-=(BigInt &a, const BigInt &b);
-  friend BigInt &operator*=(BigInt &a, const BigInt &b);
-  friend BigInt &operator/=(BigInt &a, const BigInt &b);
-  friend BigInt &operator%=(BigInt &a, const BigInt &b);
+  BigInt& operator++();
+  BigInt operator++(int);
+  BigInt& operator--();
+  BigInt operator--(int);
 
-  [[nodiscard]] std::pair<BigInt, BigInt> div_mod(const BigInt &other) const;
-  static BigInt abs(const BigInt &n);
-  static BigInt gcd(const BigInt &a, const BigInt &b);
+  friend BigInt& operator+=(BigInt& a, const BigInt& b);
+  friend BigInt& operator-=(BigInt& a, const BigInt& b);
+  friend BigInt& operator*=(BigInt& a, const BigInt& b);
+  friend BigInt& operator/=(BigInt& a, const BigInt& b);
+  friend BigInt& operator%=(BigInt& a, const BigInt& b);
 
-  friend bool operator<(const BigInt &a, const BigInt &b);
-  friend bool operator>(const BigInt &a, const BigInt &b);
-  friend bool operator==(const BigInt &a, const BigInt &b);
-  friend bool operator<=(const BigInt &a, const BigInt &b);
-  friend bool operator>=(const BigInt &a, const BigInt &b);
-  friend bool operator!=(const BigInt &a, const BigInt &b);
+  [[nodiscard]] std::pair<BigInt, BigInt> div_mod(const BigInt& other) const;
+  static BigInt abs(const BigInt& n);
+  static BigInt gcd(const BigInt& a, const BigInt& b);
+
+  friend bool operator<(const BigInt& a, const BigInt& b);
+  friend bool operator>(const BigInt& a, const BigInt& b);
+  friend bool operator==(const BigInt& a, const BigInt& b);
+  friend bool operator<=(const BigInt& a, const BigInt& b);
+  friend bool operator>=(const BigInt& a, const BigInt& b);
+  friend bool operator!=(const BigInt& a, const BigInt& b);
 
  protected:
   void _shift_right();

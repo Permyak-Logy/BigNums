@@ -1,6 +1,6 @@
 #include "../BigInt.h"
 
-BigInt operator+(const BigInt &a, const BigInt &other) { // NOLINT(misc-no-recursion)
+BigInt operator+(const BigInt& a, const BigInt& other) { // NOLINT(misc-no-recursion)
   if (!a._negative && other._negative) {
 	return a - -other;
   }
@@ -24,7 +24,7 @@ BigInt operator+(const BigInt &a, const BigInt &other) { // NOLINT(misc-no-recur
   BigInt r(res_digits, a._negative);
   return r;
 }
-BigInt operator-(const BigInt &a, const BigInt &other) { // NOLINT(misc-no-recursion)
+BigInt operator-(const BigInt& a, const BigInt& other) { // NOLINT(misc-no-recursion)
   if (!a._negative && other._negative) {
 	return a + -other;
   }
@@ -54,7 +54,7 @@ BigInt operator-(const BigInt &a, const BigInt &other) { // NOLINT(misc-no-recur
   result.fixup();
   return result;
 }
-BigInt operator*(const BigInt &a, const BigInt &other) {
+BigInt operator*(const BigInt& a, const BigInt& other) {
   digits_t res_digits(a._digits.size() + other._digits.size());
   for (size_t i = 0; i < a._digits.size(); ++i)
 	for (int j = 0, carry = 0; j < (int)other._digits.size() || carry; ++j) {
@@ -69,10 +69,10 @@ BigInt operator*(const BigInt &a, const BigInt &other) {
   BigInt result(res_digits, !(res_digits.size() == 1 && res_digits[0] == 0) && (a._negative ^ other._negative));
   return result;
 }
-BigInt operator/(const BigInt &a, const BigInt &other) {
+BigInt operator/(const BigInt& a, const BigInt& other) {
   return a.div_mod(other).first;
 }
-BigInt operator%(const BigInt &a, const BigInt &other) {
+BigInt operator%(const BigInt& a, const BigInt& other) {
   return a.div_mod(other).second;
 }
 BigInt BigInt::operator-() const {
@@ -81,23 +81,38 @@ BigInt BigInt::operator-() const {
   return result;
 }
 
-BigInt &operator+=(BigInt &a, const BigInt &other) {
+BigInt& BigInt::operator++() {
+  return (*this += 1);
+}
+BigInt BigInt::operator++(int) {
+  *this += 1;
+  return *this - 1;
+}
+BigInt& BigInt::operator--() {
+  return (*this -= 1);
+}
+BigInt BigInt::operator--(int) {
+  *this -= 1;
+  return *this + 1;
+}
+
+BigInt& operator+=(BigInt& a, const BigInt& other) {
   return a = a + other;
 }
-BigInt &operator-=(BigInt &a, const BigInt &other) {
+BigInt& operator-=(BigInt& a, const BigInt& other) {
   return a = a - other;
 }
-BigInt &operator*=(BigInt &a, const BigInt &other) {
+BigInt& operator*=(BigInt& a, const BigInt& other) {
   return a = a * other;
 }
-BigInt &operator/=(BigInt &a, const BigInt &other) {
+BigInt& operator/=(BigInt& a, const BigInt& other) {
   return a = a / other;
 }
-BigInt &operator%=(BigInt &a, const BigInt &other) {
+BigInt& operator%=(BigInt& a, const BigInt& other) {
   return a = a % other;
 }
 
-std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt &other) const {
+std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt& other) const {
   if (other == 0) {
 	throw std::runtime_error("Zero is specified as the divisor.");
   }
@@ -136,7 +151,7 @@ std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt &other) const {
   std::pair<BigInt, BigInt> result(div_result, remainder);
   return result;
 }
-BigInt BigInt::abs(const BigInt &n) {
+BigInt BigInt::abs(const BigInt& n) {
   BigInt result = n;
   result._negative = false;
   return result;

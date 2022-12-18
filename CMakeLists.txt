@@ -4,7 +4,7 @@ project(BigNum)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(
-        BigNum main.cpp
+        BigNum src/main.cpp
         src/BigNums.h
         src/utils.cpp
         src/aliases.h

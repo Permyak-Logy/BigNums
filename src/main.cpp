@@ -1,4 +1,4 @@
-#include "src/BigNums.h"
+#include "BigNums.h"
 
 void init_big_int() {
   std::cout << "====== Init BigInt ======" << std::endl;
@@ -52,7 +52,7 @@ void arithmetic_big_int() {
   std::cout << a << " / " << b << " = " << a / b << std::endl;
   std::cout << a << " % " << b << " = " << a % b << std::endl;
   std::cout << "- " << a << " = " << -a << std::endl;
-  std::cout << "|" << a << "| = " << BigInt::abs(b) << std::endl;
+  std::cout << "|" << a << "| = " << BigInt::abs(a) << std::endl;
   std::cout << "|" << b << "| = " << BigInt::abs(b) << std::endl;
 
   std::cout << "\na = " << a << "\nb = " << b << std::endl;
@@ -70,6 +70,20 @@ void arithmetic_big_int() {
 
   // Или на дробь, но тогда на выходе будет BigDouble
   std::cout << "a * 10.1 = " << a * 10.1 << std::endl;
+
+  std::cout << "\na = " << a << std::endl;
+
+  // Инкремент
+  std::cout << "a++ = " << a++;
+  std::cout << " (a = " << a << ")" << std::endl;
+  std::cout << "++a = " << ++a;
+  std::cout << " (a = " << a << ")" << std::endl;
+
+  // Декремент
+  std::cout << "a-- = " << a--;
+  std::cout << " (a = " << a << ")" << std::endl;
+  std::cout << "--a = " << --a;
+  std::cout << " (a = " << a << ")" << std::endl;
 }
 
 void arithmetic_big_double() {
@@ -82,7 +96,7 @@ void arithmetic_big_double() {
   std::cout << a << " / " << b << " = " << a / b << std::endl;
   std::cout << a << " % " << b << " = " << a % b << std::endl;
   std::cout << "- " << a << " = " << -a << std::endl;
-  std::cout << "|" << a << "| = " << BigDouble::abs(b) << std::endl;
+  std::cout << "|" << a << "| = " << BigDouble::abs(a) << std::endl;
   std::cout << "|" << b << "| = " << BigDouble::abs(b) << std::endl;
 
   std::cout << "\na = " << a << "\nb = " << b << std::endl;
@@ -99,6 +113,20 @@ void arithmetic_big_double() {
   std::cout << "a + 10.1 = " << a + 10.1 << std::endl;
   std::cout << "10 - a = " << 10 - a << std::endl;
   std::cout << "a + 100" << a + BigInt(100) << std::endl;
+
+  std::cout << "\na = " << a << std::endl;
+
+  // Инкремент
+  std::cout << "a++ = " << a++;
+  std::cout << " (a = " << a << ")" << std::endl;
+  std::cout << "++a = " << ++a;
+  std::cout << " (a = " << a << ")" << std::endl;
+
+  // Декремент
+  std::cout << "a-- = " << a--;
+  std::cout << " (a = " << a << ")" << std::endl;
+  std::cout << "--a = " << --a;
+  std::cout << " (a = " << a << ")" << std::endl;
 }
 
 void compares() {
@@ -141,5 +169,8 @@ int main() {
   arithmetic_big_double();
   compares();
   other();
+  BigInt a;
+
   return 0;
 }
+

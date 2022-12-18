@@ -1,6 +1,6 @@
 
 template<typename T = int>
-T pow(const T &x, int n) {
+T pow(const T& x, int n) {
   T result = 1;
   T multi = x;
   while (n) {

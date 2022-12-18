@@ -1,7 +1,7 @@
 #include "../BigDouble.h"
 #include "../utils.cpp"
 
-BigDouble::BigDouble(const std::string &s) {
+BigDouble::BigDouble(const std::string& s) {
   size_t index_point = s.find('.');
   size_t index_div = s.find('/');
   if (index_point < s.size()) {
