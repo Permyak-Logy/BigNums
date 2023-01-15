@@ -37,11 +37,11 @@ class BigInt {
   BigInt& operator--();
   BigInt operator--(int);
 
-  friend BigInt& operator+=(BigInt& a, const BigInt& b);
-  friend BigInt& operator-=(BigInt& a, const BigInt& b);
-  friend BigInt& operator*=(BigInt& a, const BigInt& b);
-  friend BigInt& operator/=(BigInt& a, const BigInt& b);
-  friend BigInt& operator%=(BigInt& a, const BigInt& b);
+  BigInt& operator+=(const BigInt& other);
+  BigInt& operator-=(const BigInt& other);
+  BigInt& operator*=(const BigInt& other);
+  BigInt& operator/=(const BigInt& other);
+  BigInt& operator%=(const BigInt& other);
 
   [[nodiscard]] std::pair<BigInt, BigInt> div_mod(const BigInt& other) const;
   static BigInt abs(const BigInt& n);

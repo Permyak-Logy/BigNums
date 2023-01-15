@@ -134,20 +134,20 @@ BigInt BigInt::operator--(int) {
   return *this + 1;
 }
 
-BigInt& operator+=(BigInt& a, const BigInt& other) {
-  return a = a + other;
+BigInt& BigInt::operator+=(const BigInt& other) {
+  return *this = *this + other;
 }
-BigInt& operator-=(BigInt& a, const BigInt& other) {
-  return a = a - other;
+BigInt& BigInt::operator-=(const BigInt& other) {
+  return *this = *this - other;
 }
-BigInt& operator*=(BigInt& a, const BigInt& other) {
-  return a = a * other;
+BigInt& BigInt::operator*=(const BigInt& other) {
+  return *this = *this * other;
 }
-BigInt& operator/=(BigInt& a, const BigInt& other) {
-  return a = a / other;
+BigInt& BigInt::operator/=(const BigInt& other) {
+  return *this = *this / other;
 }
-BigInt& operator%=(BigInt& a, const BigInt& other) {
-  return a = a % other;
+BigInt& BigInt::operator%=(const BigInt& other) {
+  return *this = *this % other;
 }
 
 std::pair<BigInt, BigInt> BigInt::div_mod(const BigInt& other) const {
@@ -222,7 +222,7 @@ bool operator<(const BigInt& a, const BigInt& b) {
   return false;
 }
 bool operator>(const BigInt& a, const BigInt& b) {
-  return !(a < b);
+  return !(a < b || a == b);
 }
 bool operator==(const BigInt& a, const BigInt& b) {
   if (a._negative != b._negative) return false;
@@ -233,7 +233,7 @@ bool operator==(const BigInt& a, const BigInt& b) {
   return true;
 }
 bool operator<=(const BigInt& a, const BigInt& b) {
-  return (a < b) || a == b;
+  return a < b || a == b;
 }
 bool operator>=(const BigInt& a, const BigInt& b) {
   return !(a < b) || a == b;
